@@ -1,14 +1,26 @@
-package de.htwsaar.nytSearchEngine.Util;
+package de.htwsaar.nytSearchEngine.util;
 
 import com.nytlabs.corpus.NYTCorpusDocument;
 import com.nytlabs.corpus.NYTCorpusDocumentParser;
-import de.htwsaar.nytSearchEngine.Model.Document;
+import de.htwsaar.nytSearchEngine.model.Document;
 
 import java.io.File;
 
-public class Parser {
-
-    public static Document parse(File file){
+/**
+ * Parser class
+ *
+ * @author Tobias Gottschalk
+ * @author Agra Bimantara
+ * @author Shenna RWP
+ */
+public class Parser
+{
+    /**
+     * parse xml file and create Document-object based on its attributes
+     * @param file the xml file
+     * @return Document-object
+     */
+    public static Document parse(File file) {
         final boolean VALIDATING = false;
 
         NYTCorpusDocument nytDocument;
@@ -23,11 +35,9 @@ public class Parser {
         document.setTitle(nytDocument.getHeadline());
         document.setUrl(nytDocument.getUrl().toString());
 
-
-        // TODO The entire body is in one field. Tokenization her?
-        String[] contentBody = new String[1];
-        contentBody[1] = nytDocument.getBody();
-        document.setContent(contentBody);
+        //get body/content from NYTCorpusParser
+        String body = nytDocument.getBody();
+        document.setContent(Tokenizer.tokenizeString(body));
 
         return document;
     }
