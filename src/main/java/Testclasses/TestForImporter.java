@@ -10,11 +10,11 @@ public class TestForImporter
 
         //Path to the start directory
         //CHANGE TO YOUR OWN DIRECTORY CONTAINING THE XML-FILES
-        final String PATH_TO_FOLDER = "C:\\Users\\ruip_\\Downloads\\nyt";
+        final String PATH_TO_FOLDER = "C:\\Users\\Agra Bimantara\\Documents\\nytSearchEngine\\nyt\\data\\2000";
 
         File file = new File(PATH_TO_FOLDER);
         Importer importer = new Importer();
 
-        importer.importFiles(file);
+        importer.importFile(file);
     }
 }

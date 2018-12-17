@@ -9,12 +9,13 @@ public class TestForParser
 {
     public static void start() {
         //CHANGE TO YOUR OWN DIRECTORY CONTAINING THE XML-FILE
-        File file = new File("C:\\Users\\ruip_\\Downloads\\nyt\\data\\2000\\01\\01\\1165027.xml");
+        File file = new File("C:\\Users\\Agra Bimantara\\Documents\\nytSearchEngine\\nyt\\data\\2000\\01\\01\\1165027.xml");
         Document document = Parser.parse(file);
-        System.out.println("test");
-        System.out.println(document.getId());
-        System.out.println(document.getTitle());
-        System.out.println(document.getUrl());
+        //System.out.println("test");
+        System.out.println("ID     : " + document.getId());
+        System.out.println("Title  : " + document.getTitle());
+        System.out.println("URL    : " + document.getUrl());
+        System.out.println("Content: ");
         for(String string : document.getContent())
             System.out.println(string);
     }

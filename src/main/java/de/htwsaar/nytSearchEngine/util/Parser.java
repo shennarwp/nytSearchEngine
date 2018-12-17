@@ -2,6 +2,7 @@ package de.htwsaar.nytSearchEngine.util;
 
 import com.nytlabs.corpus.NYTCorpusDocument;
 import com.nytlabs.corpus.NYTCorpusDocumentParser;
+import de.htwsaar.nytSearchEngine.util.Tokenizer;
 import de.htwsaar.nytSearchEngine.model.Document;
 
 import java.io.File;
