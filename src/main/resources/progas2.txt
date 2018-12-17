@@ -1,0 +1,61 @@
+Programming Assignment 2
+	
+Agra Bimantara		3710033
+Shenna R.W. Piri	3737748
+Tobias Gottschalk 	3726037
+
+
+
+//-----------------------------------------AUFGABE 2.1-----------------------------------------
+SQLite 3.26.0 2018-12-01 12:34:55 bf8c1b2b7a5960c282e543b9c293686dccff272512d08865f4600fb58238b4f9
+zlib version 1.2.11
+gcc-5.2.0
+
+//-----------------------------------------AUFGABE 2.2-----------------------------------------
+//FOR TABLE docs
+CREATE TABLE docs (
+    did   INTEGER PRIMARY KEY
+                  UNIQUE
+                  NOT NULL,
+    title TEXT    NOT NULL,
+    url   TEXT    NOT NULL
+);
+
+//FOR TABLE tfs
+CREATE TABLE tfs (
+    did  INTEGER REFERENCES docs (did) ON DELETE CASCADE
+                                       ON UPDATE CASCADE
+                 NOT NULL,
+    term TEXT    NOT NULL,
+    tf   INTEGER NOT NULL
+                 CHECK (tf >= 0)
+                 DEFAULT (0)
+);
+
+
+//-----------------------------------------AUFGABE 2.4-----------------------------------------
+//FOR TABLE dls, len is total number of term occurrences within the document
+CREATE TABLE dls AS
+SELECT DISTINCT t.did AS did,
+	   (SELECT COUNT(a.term) FROM tfs a WHERE a.did = t.did) AS len
+FROM tfs t;
+
+//FOR TABLE dfs, df is document frequency of particular term in the collection
+CREATE TABLE dfs AS
+SELECT DISTINCT t.term AS term,
+	   (SELECT COUNT(a.did) FROM tfs a WHERE a.term = t.term) AS df
+FROM tfs t;
+
+//FOR TABLE d, size is the total number of documents in the collection
+CREATE TABLE d AS
+SELECT COUNT(DISTINCT t.did) AS size
+FROM tfs t;
+
+note: for some(?) reasons the data inside these 3 tables does not automatically updates
+	  whenever new data is updated / inserted in the parent table tfs or docs (e.g. adding new term / new docs id)
+	  the only way to update these 3 tables is by deleting it and then execute the query CREATE TABLE ... again
+
+//same as 3 queries above, but one line for copy paste
+CREATE TABLE dls AS SELECT DISTINCT t.did AS did, (SELECT COUNT(a.term) FROM tfs a WHERE a.did = t.did) AS len FROM tfs t;
+CREATE TABLE dfs AS SELECT DISTINCT t.term AS term, (SELECT COUNT(a.did) FROM tfs a WHERE a.term = t.term) AS df FROM tfs t;
+CREATE TABLE d AS SELECT COUNT(DISTINCT t.did) AS size FROM tfs t;
