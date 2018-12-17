@@ -112,7 +112,7 @@ public class DAOImpl {
     }
 
     //insert method to tfs table
-    //TODO :not done yet
+    //TODO :not done yet, should find term and tf 
     private void insertIntoTfs(long id, String term, int tf){
         String sql = "INSERT INTO tfs(did, term, tf)VALUES(?,?,?)";
 
@@ -138,6 +138,7 @@ public class DAOImpl {
         Document document = Parser.parse(file) ;
         DAOImpl insertDocs = new DAOImpl();
         insertDocs.insertIntoDocs(document.getId(),document.getTitle(),document.getUrl());
+        //insertDocs.insertIntoTfs();
     }
 
 

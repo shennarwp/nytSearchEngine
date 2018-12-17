@@ -54,7 +54,6 @@
     <index id="20" parent="9" name="sqlite_autoindex_docs_1">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>did</ColNames>
-      <ColumnCollations></ColumnCollations>
       <Unique>1</Unique>
     </index>
     <key id="21" parent="9">

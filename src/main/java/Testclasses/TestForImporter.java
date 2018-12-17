@@ -1,6 +1,6 @@
 package Testclasses;
 
-import de.htwsaar.nytSearchEngine.util.Importer;
+import de.htwsaar.nytSearchEngine.Util.Importer;
 
 import java.io.File;
 
