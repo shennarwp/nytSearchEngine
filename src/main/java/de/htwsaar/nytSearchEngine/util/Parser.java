@@ -2,10 +2,12 @@ package de.htwsaar.nytSearchEngine.util;
 
 import com.nytlabs.corpus.NYTCorpusDocument;
 import com.nytlabs.corpus.NYTCorpusDocumentParser;
-import de.htwsaar.nytSearchEngine.util.Tokenizer;
 import de.htwsaar.nytSearchEngine.model.Document;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Map;
+import java.util.Scanner;
 
 /**
  * Parser class
@@ -23,6 +25,7 @@ public class Parser
      */
     public static Document parse(File file) {
         final boolean VALIDATING = false;
+        //Map<String, Integer> words = new HashMap<String, Integer>();
 
         NYTCorpusDocument nytDocument;
         Document document = new Document();
@@ -39,7 +42,30 @@ public class Parser
         //get body/content from NYTCorpusParser
         String body = nytDocument.getBody();
         document.setContent(Tokenizer.tokenizeString(body));
+        /*try {
+            termFreq(body, words);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        System.out.println(words);*/
 
         return document;
     }
+
+    //termFreq
+    public static void termFreq(String contents, Map<String, Integer> words) throws FileNotFoundException {
+        Scanner files =  new Scanner(contents);
+        while(files.hasNext()){
+            String word = files.next();
+            Integer count = words.get(word);
+            if (count != null)
+                count++;
+            else
+                count= 1;
+
+            words.put(word, count);
+        }
+        files.close();
+    }
 }
+
