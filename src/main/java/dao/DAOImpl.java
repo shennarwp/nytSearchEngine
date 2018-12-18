@@ -1,9 +1,5 @@
 package dao;
 
-import de.htwsaar.nytSearchEngine.model.Document;
-import de.htwsaar.nytSearchEngine.util.Parser;
-
-import java.io.File;
 import java.sql.*;
 
 public class DAOImpl {
@@ -111,7 +107,6 @@ public class DAOImpl {
     }
 
     //insert method to tfs table
-    //TODO :not done yet, should find term and tf
     public void insertIntoTfs(long id, String term, int tf){
         String sql = "INSERT INTO tfs(did, term, tf)VALUES(?,?,?)";
 

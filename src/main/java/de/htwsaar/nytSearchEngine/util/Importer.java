@@ -2,6 +2,7 @@ package de.htwsaar.nytSearchEngine.util;
 
 import java.io.File;
 import java.io.FilenameFilter;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -41,6 +42,21 @@ public class Importer
         for(File xmlFile : xmlFiles) {
             System.out.println(xmlFile.getAbsolutePath() + " " + xmlFile.length());
         }
+    }
+
+    public List<File> returnListofFiles(File root) {
+        List<File> files = new ArrayList<File>();
+        if (root.isFile()) {
+            if (root.getAbsolutePath().endsWith(".xml")) {
+                files.add(root);
+            }
+        } else {
+            for (File file : root.listFiles()) {
+                importDirectory(file, files);
+            }
+        }
+
+        return files;
     }
 
    /* public static void main(String[] args) {

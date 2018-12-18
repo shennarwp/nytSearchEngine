@@ -46,7 +46,7 @@ public class Parser
         return document;
     }
 
-    //termFreq
+    //termFreq test method
     public static void termFreq(String contents, Map<String, Integer> words) throws FileNotFoundException {
         Scanner files =  new Scanner(contents);
         while(files.hasNext()){

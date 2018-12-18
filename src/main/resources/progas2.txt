@@ -4,14 +4,16 @@ Agra Bimantara		3710033
 Shenna R.W. Piri	3737748
 Tobias Gottschalk 	3726037
 
+//-----------------------------------------READ ME------------------------------------------
+- the nyt.sqlite is empty (there is no tables in it)
+- run Main class for creating tables (docs, tfs, dls, dfs, d) and for inserting data into the table docs and tfs
 
-
-//-----------------------------------------AUFGABE 2.1-----------------------------------------
+//-----------------------------------------TASK 2.1-----------------------------------------
 SQLite 3.26.0 2018-12-01 12:34:55 bf8c1b2b7a5960c282e543b9c293686dccff272512d08865f4600fb58238b4f9
 zlib version 1.2.11
 gcc-5.2.0
 
-//-----------------------------------------AUFGABE 2.2-----------------------------------------
+//-----------------------------------------TASK 2.2-----------------------------------------
 //FOR TABLE docs
 CREATE TABLE docs (
     did   INTEGER PRIMARY KEY
@@ -33,7 +35,7 @@ CREATE TABLE tfs (
 );
 
 
-//-----------------------------------------AUFGABE 2.4-----------------------------------------
+//-----------------------------------------TASK 2.4-----------------------------------------
 //FOR TABLE dls, len is total number of term occurrences within the document
 CREATE TABLE dls AS
 SELECT DISTINCT t.did AS did,
