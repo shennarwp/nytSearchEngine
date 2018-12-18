@@ -4,22 +4,29 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+
+
+import dao.DAOImpl;
 import de.htwsaar.nytSearchEngine.model.Document;
 import de.htwsaar.nytSearchEngine.util.Parser;
 
 public class Index {
+
+    DAOImpl dao = new DAOImpl();
+
+
     public void indexFD(){
-        final String PATH_TO_FOLDER = "C:\\Users\\Tobias Gottschalk\\Documents\\archives";
+        final String PATH_TO_FOLDER = "C:\\Users\\Tobias\\Documents\\2000\\";
 
         File file = new File(PATH_TO_FOLDER);
         de.htwsaar.nytSearchEngine.Util.Importer importer = new de.htwsaar.nytSearchEngine.Util.Importer();
 
-        importer.importFile(file);
+
         List<File> files =  importer.returnListofFiles(file);
         ArrayList<Document> documents = new ArrayList<>();
 
         for (File fileItem: files){
-          Document document =  Parser.parse(file);
+          Document document =  Parser.parse(fileItem);
           //documents.add(document);
           calctf(document);
         }
@@ -43,9 +50,9 @@ public class Index {
         }
 
         for(String inhalt : tfDocument.keySet()){
-            System.out.println(inhalt);
-            System.out.println(tfDocument.get(inhalt));
-            System.out.println(inhalt.toString() + " "  );
+            System.out.println("docID: " + document.getId() + " " + inhalt + " " + tfDocument.get(inhalt));
+            dao.insertIntoTfs(document.getId(),inhalt,tfDocument.get(inhalt));
+
         }
     }
 }

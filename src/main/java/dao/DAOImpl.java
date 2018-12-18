@@ -113,7 +113,7 @@ public class DAOImpl {
 
     //insert method to tfs table
     //TODO :not done yet, should find term and tf 
-    private void insertIntoTfs(long id, String term, int tf){
+    public void insertIntoTfs(long id, String term, int tf){
         String sql = "INSERT INTO tfs(did, term, tf)VALUES(?,?,?)";
 
         try (Connection conn = this.connect();
