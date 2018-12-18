@@ -56,11 +56,10 @@ public class DAOImpl {
      * CREATE TABLE d AS SELECT COUNT(DISTINCT t.did) AS size FROM tfs t;
      */
 
-
     /**
      * create table in database
      */
-    private static void createTable(){
+    public static void createTable(){
         try {
             Connection connection = DriverManager.getConnection(url);
             Statement statement = connection.createStatement();
@@ -92,7 +91,7 @@ public class DAOImpl {
     }
 
     //insert method to docs table
-    private void insertIntoDocs(long id, String title, String url) {
+    public void insertIntoDocs(long id, String title, String url) {
         String sql = "INSERT INTO docs(did,title,url) VALUES(?,?,?)";
 
         try (Connection conn = this.connect();
@@ -113,7 +112,7 @@ public class DAOImpl {
 
     //insert method to tfs table
     //TODO :not done yet, should find term and tf
-    private void insertIntoTfs(long id, String term, int tf){
+    public void insertIntoTfs(long id, String term, int tf){
         String sql = "INSERT INTO tfs(did, term, tf)VALUES(?,?,?)";
 
         try (Connection conn = this.connect();
@@ -131,15 +130,5 @@ public class DAOImpl {
             System.out.println(e.getMessage());
         }
     }
-
-    public static void main(String[] args) {
-        //createTable();
-        File file = new File("C:\\Users\\Agra Bimantara\\Documents\\nytSearchEngine\\nyt\\data\\2000\\01\\01\\1165029.xml");
-        Document document = Parser.parse(file) ;
-        DAOImpl insertDocs = new DAOImpl();
-        insertDocs.insertIntoDocs(document.getId(),document.getTitle(),document.getUrl());
-        //insertDocs.insertIntoTfs(document.getId(),);
-    }
-
 
 }

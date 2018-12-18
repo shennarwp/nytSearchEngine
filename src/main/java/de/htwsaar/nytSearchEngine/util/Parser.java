@@ -42,12 +42,6 @@ public class Parser
         //get body/content from NYTCorpusParser
         String body = nytDocument.getBody();
         document.setContent(Tokenizer.tokenizeString(body));
-        /*try {
-            termFreq(body, words);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        System.out.println(words);*/
 
         return document;
     }
