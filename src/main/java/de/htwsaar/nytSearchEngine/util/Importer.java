@@ -35,7 +35,7 @@ public class Importer
     }
 
     public void importFile(File file) {
-        LinkedList<File> xmlFiles = new LinkedList<File>();
+        LinkedList<File> xmlFiles = new LinkedList<>();
         importDirectory(file, xmlFiles);
 
         // print file names and sizes
@@ -44,8 +44,8 @@ public class Importer
         }
     }
 
-    public List<File> returnListofFiles(File root) {
-        List<File> files = new ArrayList<File>();
+    List<File> returnListofFiles(File root) {
+        List<File> files = new ArrayList<>();
         if (root.isFile()) {
             if (root.getAbsolutePath().endsWith(".xml")) {
                 files.add(root);

@@ -12,7 +12,7 @@ import de.htwsaar.nytSearchEngine.util.Parser;
 
 public class Index {
 
-    DAOImpl dao = new DAOImpl();
+    private DAOImpl dao = new DAOImpl();
 
 
     public void indexFD(){
