@@ -1,6 +1,10 @@
 package dao;
 
+import javax.xml.transform.Result;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.TreeMap;
 
 public class DAOImpl {
     private static String url = "jdbc:sqlite:src/main/resources/nyt.sqlite";
@@ -124,6 +128,32 @@ public class DAOImpl {
         }catch (SQLException e) {
             System.out.println(e.getMessage());
         }
+    }
+
+
+    //
+    public TreeMap<Integer,Integer> getDidByTerm(String term){
+        TreeMap<Integer,Integer> treeMap = new TreeMap<>();
+        ResultSet resultSet = null;
+        String sql = "SELECT did, tf FROM tfs WHERE term=? ;";
+
+        try (Connection conn = this.connect();
+             PreparedStatement ps = conn.prepareStatement(sql)){
+            ps.setString(1, term);
+            resultSet = ps.executeQuery();
+            while (resultSet.next()){
+                Integer did = resultSet.getInt("did");
+                Integer tf = resultSet.getInt("tf");
+                treeMap.put(did,tf);
+
+
+            }
+
+        }catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+        return treeMap;
     }
 
 }

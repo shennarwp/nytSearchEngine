@@ -1,5 +1,6 @@
 package de.htwsaar.nytSearchEngine;
 
+import Testclasses.TestForDAOImpl;
 import Testclasses.TestForImporter;
 import Testclasses.TestForParser;
 import dao.DAOImpl;
@@ -31,7 +32,11 @@ public class Main
 //        insertDocs.insertIntoDocs(document.getId(),document.getTitle(),document.getUrl());
 
         //-------------INSERT DATA TO TFS-TABLE
-        Index index = new Index();
-        index.indexFD();
+        //Index index = new Index();
+        //index.indexFD();
+
+        //-------------TESTS
+        TestForDAOImpl.testgetDidByTerm();
+
     }
 }
