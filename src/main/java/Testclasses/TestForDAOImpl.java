@@ -14,5 +14,11 @@ public class TestForDAOImpl {
         List<Posting> postingList = invertedIndex.getIndexList("you");
 
         System.out.println(postingList);
+
+
+
+        System.out.println(invertedIndex.getSize());
+
+        System.out.println(invertedIndex.getLength(1));
     }
 }

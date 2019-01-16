@@ -156,4 +156,86 @@ public class DAOImpl {
         return treeMap;
     }
 
+
+    public int getDF(String term){
+        String sql = "SELECT df  FROM dfs WHERE term=? ;";
+        ResultSet resultSet = null;
+       Integer df = 0;
+
+        try (Connection conn = this.connect();
+             PreparedStatement ps = conn.prepareStatement(sql)){
+            ps.setString(1, term);
+            resultSet = ps.executeQuery();
+
+
+
+            while (resultSet.next()){
+                String dfAsString = resultSet.getString("df");
+                df = Integer.parseInt(dfAsString);
+
+            }
+
+
+        }catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+        return df;
+    }
+
+
+    public int getSize(){
+        String sql = "SELECT COUNT(*) FROM docs;";
+        ResultSet resultSet = null;
+        Integer size = 0;
+
+        try (Connection conn = this.connect();
+             PreparedStatement ps = conn.prepareStatement(sql)){
+            resultSet = ps.executeQuery();
+
+
+
+            while (resultSet.next()){
+                String dfAsString = resultSet.getString("COUNT(*)");
+                size = Integer.parseInt(dfAsString);
+
+            }
+
+
+        }catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+        return size;
+    }
+
+    public int getLength(long did){
+        String sql = "SELECT len FROM dls WHERE did=? ;";
+        ResultSet resultSet = null;
+        Integer size = 0;
+
+        try (Connection conn = this.connect();
+             PreparedStatement ps = conn.prepareStatement(sql)){
+            ps.setLong(1, did);
+            resultSet = ps.executeQuery();
+
+
+
+            while (resultSet.next()){
+                String dfAsString = resultSet.getString("len");
+                size = Integer.parseInt(dfAsString);
+
+            }
+
+
+        }catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+        return size;
+    }
+
+
+
+
 }

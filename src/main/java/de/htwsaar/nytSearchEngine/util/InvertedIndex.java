@@ -41,16 +41,16 @@ public class InvertedIndex {
 
     public int getDF(String term){
 
-        return 0;
+        return dao.getDF(term);
     }
 
     public int getSize(){
 
-        return 0;
+        return dao.getSize();
     }
 
-    int getLength(long did){
+    public int getLength(long did){
 
-        return 0;
+        return dao.getSize();
     }
 }
