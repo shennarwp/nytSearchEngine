@@ -30,6 +30,7 @@ public class Index {
 
         for (File fileItem: files){
             Document document =  Parser.parse(fileItem);
+            dao.insertIntoDocs(document.getId(),document.getTitle(),document.getUrl());
             calctf(document);
         }
 
