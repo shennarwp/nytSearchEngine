@@ -42,10 +42,16 @@ class Tokenizer
 	 * @return each words from the text inside an array
 	 */
 	static String[] tokenizeString(String string) {
+		if(string == null) {
+			String[] arr = new String[1];
+			arr[0] = " ";
+			return arr;
+		}
 		String text = "";
 
 		BreakIterator breakIterator = BreakIterator.getSentenceInstance(LOCALE_US);
 		breakIterator.setText(removeTags(string));
+		//breakIterator.setText(string);
 		int start = breakIterator.first();
 		for (int end = breakIterator.next();
 			 end != BreakIterator.DONE;

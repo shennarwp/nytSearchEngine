@@ -10,6 +10,8 @@ import dao.DAOImpl;
 import de.htwsaar.nytSearchEngine.model.Document;
 import de.htwsaar.nytSearchEngine.util.Parser;
 
+import static de.htwsaar.nytSearchEngine.constants.PathConstant.PATH_TO_FOLDER;
+
 public class Index {
 
     private DAOImpl dao = new DAOImpl();
@@ -17,7 +19,7 @@ public class Index {
 
     public void indexFD(){
         //Change the directory pathname
-        final String PATH_TO_FOLDER = "C:\\Users\\Agra Bimantara\\Documents\\nytSearchEngine\\nyt\\data\\2000\\01\\01\\1165027.xml";
+        //final String PATH_TO_FOLDER = "C:\\Users\\ruip_\\Downloads\\nyt\\nyt\\data\\2000\\01\\01\\1165099.xml";
 
         File file = new File(PATH_TO_FOLDER);
         de.htwsaar.nytSearchEngine.util.Importer importer = new de.htwsaar.nytSearchEngine.util.Importer();
