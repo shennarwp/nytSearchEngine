@@ -13,8 +13,8 @@ public class TestForImporter
         final String PATH_TO_FOLDER = "C:\\Users\\Agra Bimantara\\Documents\\nytSearchEngine\\nyt\\data\\2000";
 
         File file = new File(PATH_TO_FOLDER);
-        Importer importer = new Importer();
+       // Importer importer = new Importer();
 
-        importer.importFile(file);
+      //  importer.importFile(file);
     }
 }

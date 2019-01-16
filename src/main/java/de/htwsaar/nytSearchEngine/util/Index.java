@@ -22,17 +22,18 @@ public class Index {
         //final String PATH_TO_FOLDER = "C:\\Users\\ruip_\\Downloads\\nyt\\nyt\\data\\2000\\01\\01\\1165099.xml";
 
         File file = new File(PATH_TO_FOLDER);
-        de.htwsaar.nytSearchEngine.util.Importer importer = new de.htwsaar.nytSearchEngine.util.Importer();
+      //  de.htwsaar.nytSearchEngine.util.Importer importer = new de.htwsaar.nytSearchEngine.util.Importer();
 
 
-        List<File> files =  importer.returnListofFiles(file);
+       // List<File> files =  importer.returnListofFiles(file);
         ArrayList<Document> documents = new ArrayList<>();
 
-        for (File fileItem: files){
+ /*       for (File fileItem: files){
             Document document =  Parser.parse(fileItem);
+            System.out.println(document.getId());
             dao.insertIntoDocs(document.getId(),document.getTitle(),document.getUrl());
             calctf(document);
-        }
+        }*/
 
 
     }
@@ -57,7 +58,7 @@ public class Index {
         }
 
         for(String inhalt : tfDocument.keySet()){
-            System.out.println("docID: " + document.getId() + " " + inhalt + " " + tfDocument.get(inhalt));
+          //  System.out.println("docID: " + document.getId() + " " + inhalt + " " + tfDocument.get(inhalt));
             dao.insertIntoTfs(document.getId(),inhalt,tfDocument.get(inhalt));
 
         }

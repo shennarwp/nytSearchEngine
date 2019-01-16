@@ -1,20 +1,30 @@
 package de.htwsaar.nytSearchEngine.util;
 
+import de.htwsaar.nytSearchEngine.model.Document;
+
 import java.io.File;
-import java.io.FilenameFilter;
-import java.util.ArrayList;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
 /**
- * Importer-class
+ * Imports files and directories into our index.
  *
- * @author Tobias Gottschalk
- * @author Agra Bimantara
- * @author Shenna RWP
+ * @author Klaus Berberich (klaus.berberich@htwsaar.de)
  */
-public class Importer
-{
+public class Importer {
+
+    // path to SQLite database file
+    private String db;
+
+    public Importer(String db) {
+        this.db = db;
+    }
+
     /**
      * Traverses the given root recursively, collects all files with suffix
      * .xml, and appends them to the given list.
@@ -22,46 +32,129 @@ public class Importer
      * @param root Root to be traversed.
      * @param files List to which found files are appended.
      */
-    private void importDirectory(File root, List<File> files) {
+    private void traverse(File root, List<File> files) {
         if (root.isFile()) {
             if (root.getAbsolutePath().endsWith(".xml")) {
                 files.add(root);
             }
         } else {
             for (File file : root.listFiles()) {
-                importDirectory(file, files);
+                traverse(file, files);
             }
         }
     }
 
-    public void importFile(File file) {
-        LinkedList<File> xmlFiles = new LinkedList<>();
-        importDirectory(file, xmlFiles);
+    /**
+     * Convenience method accepting a String instead of a File.
+     *
+     * @param dir Directory to be imported.
+     */
+    public void importDirectory(String dir) {
+        importDirectory(new File(dir));
+    }
 
-        // print file names and sizes
-        for(File xmlFile : xmlFiles) {
-            System.out.println(xmlFile.getAbsolutePath() + " " + xmlFile.length());
+    /**
+     * Imports all files in the given directory into the database.
+     *
+     * @param dir Directory to be imported.
+     */
+    public void importDirectory(File dir) {
+        Connection conn = null;
+        PreparedStatement insertDoc = null;
+        PreparedStatement insertTfs = null;
+
+        try {
+            // load JDBC driver
+            Class.forName("org.sqlite.JDBC");
+
+            // open connection
+            conn = DriverManager.getConnection("jdbc:sqlite:" + db);
+            conn.setAutoCommit(false);
+
+            // prepare statements
+            insertDoc = conn.prepareStatement("INSERT INTO docs (did, title, url) VALUES (?, ?, ?)");
+            insertTfs = conn.prepareStatement("INSERT INTO tfs (did, term, tf) VALUES (?, ?, ?)");
+
+            // recursively traverse given directory
+            LinkedList<File> files = new LinkedList<>();
+            traverse(dir, files);
+
+            // parse documents and insert them into the database
+            int batchCount = 0;
+            Parser parser = new Parser();
+            for (File file : files) {
+                Document doc = parser.parse(file);
+
+
+                // add document meta-data to batch
+                insertDoc.setLong(1, doc.getId());
+                insertDoc.setString(2, doc.getTitle());
+                insertDoc.setString(3, doc.getURL());
+                insertDoc.addBatch();
+
+                // determine term frequencies
+                HashMap<String, Integer> tfs = new HashMap<String, Integer>();
+                for (String term : doc.getContent()) {
+                    tfs.putIfAbsent(term, 0);
+                    tfs.put(term, tfs.get(term) + 1);
+                }
+
+                // add term frequencies to batch
+                for (String term : tfs.keySet()) {
+                    insertTfs.setLong(1, doc.getId());
+                    insertTfs.setString(2, term);
+                    insertTfs.setInt(3, tfs.get(term));
+                    insertTfs.addBatch();
+                }
+
+                // execute current batch
+                if (++batchCount % 100 == 0) {
+                    System.out.println(batchCount);
+                    insertDoc.executeBatch();
+                    insertTfs.executeBatch();
+                }
+            }
+
+            // execute last batch
+            if (batchCount % 100 != 0) {
+                insertDoc.executeBatch();
+                insertTfs.executeBatch();
+            }
+
+            // commit transaction
+            conn.commit();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            // close all statements and the connection
+            if (insertDoc != null) {
+                try {
+                    insertDoc.close();
+                } catch (SQLException sqle) {
+                }
+            }
+            if (insertTfs != null) {
+                try {
+                    insertTfs.close();
+                } catch (SQLException sqle) {
+                }
+            }
+            if (conn != null) {
+                try {
+                    conn.close();
+                } catch (SQLException sqle) {
+                }
+            }
         }
     }
 
-    List<File> returnListofFiles(File root) {
-        List<File> files = new ArrayList<>();
-        if (root.isFile()) {
-            if (root.getAbsolutePath().endsWith(".xml")) {
-                files.add(root);
-            }
-        } else {
-            for (File file : root.listFiles()) {
-                importDirectory(file, files);
-            }
-        }
+    public static void main(String[] args) {
+        String dbPath = "C:\\Users\\Tobias\\AndroidWorkspace\\nytSearchEngine\\src\\main\\resources\\nyt.sqlite";
+        String nytPath = "F:\\archives\\2000\\02";
 
-        return files;
+        Importer importer = new Importer(dbPath);
+        importer.importDirectory(nytPath);
     }
-
-   /* public static void main(String[] args) {
-        Importer importer = new Importer();
-        importer.importFile(new File("C:\\Users\\Agra Bimantara\\Documents\\nytSearchEngine\\nyt\\data"));
-    }*/
 
 }

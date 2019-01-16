@@ -14,6 +14,6 @@ public class Document
 {
     private long id;
     private String title;
-    private String url;
+    private String URL;
     private String[] content;
 }
