@@ -1,0 +1,11 @@
+Programming Assignment 2
+
+Agra Bimantara		3710033
+Shenna R.W. Piri	3737748
+Tobias Gottschalk 	3726037
+----------------------------------------
+3.1.
+c)
+    CREATE INDEX idx_tfs ON tfs(term,did,tf);
+    CREATE INDEX idx_dfs ON dfs(term,df);
+    CREATE INDEX idx_dls ON dls(did,len);
