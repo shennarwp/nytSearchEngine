@@ -1,4 +1,4 @@
-package de.htwsaar.nytSearchEngine.util;
+package de.htwsaar.nytSearchEngine.model;
 
 import lombok.Getter;
 import lombok.Setter;

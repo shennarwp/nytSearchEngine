@@ -5,7 +5,6 @@ import com.nytlabs.corpus.NYTCorpusDocumentParser;
 import de.htwsaar.nytSearchEngine.model.Document;
 import org.tartarus.snowball.ext.PorterStemmer;
 
-
 import java.io.File;
 
 /**
