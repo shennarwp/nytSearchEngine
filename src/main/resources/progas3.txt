@@ -1,0 +1,37 @@
+Programming Assignment 3
+
+Agra Bimantara        3710033
+Shenna R.W. Piri    3737748
+Tobias Gottschalk     3726037
+----------------------------------------
+3.1.
+c)
+    CREATE INDEX idx_tfs ON tfs(term,did,tf);
+    CREATE INDEX idx_dfs ON dfs(term,df);
+
+
+
+3.2.
+    run Main.java
+    uncomment the top 3 lines to start indexing
+c)
+    olympics opening ceremony
+    did: 1259522 score: 116.87071034693614
+    did: 1232198 score: 85.4055190996841
+    did: 1230028 score: 80.9104917786481
+    did: 1229438 score: 71.92043713657608
+    did: 1221996 score: 62.93038249450407
+
+    denmark sweden bridge
+    did: 1229484 score: 126.19225498745273
+    did: 1237142 score: 119.96195751506662
+    did: 1229543 score: 112.46433517037495
+    did: 1218647 score: 108.71552399802911
+    did: 1210109 score: 93.72027930864579
+
+    tokyo train disaster
+    did: 1216849 score: 101.64542181808045
+    did: 1236859 score: 91.96490545445374
+    did: 1243203 score: 91.96490545445374
+    did: 1253846 score: 83.24984742468843
+    did: 1201724 score: 77.44413090901368

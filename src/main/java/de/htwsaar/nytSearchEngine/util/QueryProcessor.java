@@ -5,38 +5,55 @@ package de.htwsaar.nytSearchEngine.util;
 import de.htwsaar.nytSearchEngine.model.Accumulator;
 import de.htwsaar.nytSearchEngine.model.Posting;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+import java.util.TreeMap;
+
+import static de.htwsaar.nytSearchEngine.util.Tokenizer.tokenizeString;
+
 
 public class QueryProcessor {
-//	List<Accumulator> process(String query) {
-//		String[] queryArray = tokenizeString(query);
-//		for(String s : queryArray) {
-//
-//		}
-//	}
-//}
+    public List<Accumulator> process(String query) {
 
-
-    public List<Accumulator> process(String query, int k) {
+        List<Accumulator> accList = new ArrayList<>();
         InvertedIndex invertedIndex = new InvertedIndex();
-        String[] queryArray = Tokenizer.tokenizeString(query);
-        ArrayList<List<Posting>> listOfPostingLists = new ArrayList<>();
+        int docSize = invertedIndex.getSize();
 
-        List<Posting> postingList1 = invertedIndex.getIndexList(queryArray[i]);
-        List<Posting> postingList2 = invertedIndex.getIndexList(queryArray[i]);
-        List<Posting> postingList3 = invertedIndex.getIndexList(queryArray[i]);
+        String[] queryArray = tokenizeString(query);
+        for(String term : queryArray) {
+
+            List<Posting> postingList = invertedIndex.getIndexList(term);
+            TreeMap<Long, Accumulator> mapAcc = new TreeMap<>();
 
 
-        for (int i = 0; i < queryArray.length; i++) {
-            //List<Posting> postingList = invertedIndex.getIndexList(queryArray[i]);
-            //listOfPostingLists.add(postingList);
+            int docFreq = postingList.size();
+
+
+            for(Posting p : postingList) {
+                if(mapAcc.containsKey(p.getDid())) {
+                    Accumulator acc = mapAcc.get(p.getDid());
+                    double oldscore = acc.getScore();
+                    double newscore = p.getTf() * Math.log((double)docSize / docFreq);
+                    acc.setScore(oldscore + newscore);
+                } else {
+                    Accumulator acc = new Accumulator();
+                    acc.setDid(p.getDid());
+                    double score = p.getTf() * Math.log((double)docSize / docFreq);
+                    acc.setScore(score);
+
+                    mapAcc.put(acc.getDid(), acc);
+                }
+
+            }
+
+            accList.addAll(mapAcc.values());
         }
+        accList.sort(Comparator.comparing(Accumulator::getScore).reversed());
+        return accList;
 
-
-
-
-
-        return null;
     }
 
+    public List<Accumulator> process(String query, int k) {
+        return process(query).subList(0, k);
+    }
 }

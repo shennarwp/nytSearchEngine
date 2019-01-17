@@ -24,14 +24,8 @@ public class Importer {
     public Importer(String db) {
         this.db = db;
     }
+    public Importer() {this.db = "jdbc:sqlite:src/main/resources/nyt.sqlite";}
 
-    /**
-     * Traverses the given root recursively, collects all files with suffix
-     * .xml, and appends them to the given list.
-     *
-     * @param root Root to be traversed.
-     * @param files List to which found files are appended.
-     */
     private void traverse(File root, List<File> files) {
         if (root.isFile()) {
             if (root.getAbsolutePath().endsWith(".xml")) {
@@ -44,15 +38,9 @@ public class Importer {
         }
     }
 
-    /**
-     * Convenience method accepting a String instead of a File.
-     *
-     * @param dir Directory to be imported.
-     */
     public void importDirectory(String dir) {
         importDirectory(new File(dir));
     }
-
     /**
      * Imports all files in the given directory into the database.
      *
@@ -150,8 +138,8 @@ public class Importer {
     }
 
     public static void main(String[] args) {
-        String dbPath = "C:\\Users\\Tobias\\AndroidWorkspace\\nytSearchEngine\\src\\main\\resources\\nyt.sqlite";
-        String nytPath = "F:\\archives\\2000\\02";
+        String dbPath = "C:\\Users\\Agra Bimantara\\IdeaProjects\\nytSearchEngine\\src\\main\\resources\\nyt.sqlite";
+        String nytPath = "C:\\Users\\Agra Bimantara\\Documents\\nytSearchEngine\\nyt\\data\\2000";
 
         Importer importer = new Importer(dbPath);
         importer.importDirectory(nytPath);
