@@ -269,6 +269,25 @@ public class DAOImpl {
         return document;
     }
 
+    public String getTitleByDid(long did) {
+       String sql = "SELECT title DROM docs WHERE did=? ;";
+       String title = "";
+       ResultSet resultSet = null;
+
+       try(Connection conn = this.connect();
+           PreparedStatement ps = conn.prepareStatement(sql)) {
+           ps.setLong(1, did);
+           resultSet = ps.executeQuery();
+
+           while(resultSet.next()) {
+               title = resultSet.getString(title);
+           }
+       } catch (SQLException e) {
+           System.out.println(e.getMessage());
+       }
+       return title;
+    }
+
 
 
 

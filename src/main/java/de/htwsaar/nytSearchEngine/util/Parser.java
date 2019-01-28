@@ -38,8 +38,8 @@ public class Parser {
 
         // copy attributes
         doc.setId(nytDoc.getGuid());
-        doc.setURL(nytDoc.getUrl().toString());
-        doc.setTitle(nytDoc.getHeadline());
+        doc.setURL(nytDoc.getUrl().toString() == null ? "" : nytDoc.getUrl().toString());
+        doc.setTitle(nytDoc.getHeadline() == null ? "" : nytDoc.getHeadline());
 
         // get document content
         String body = (nytDoc.getBody() == null ? "" : nytDoc.getBody());

@@ -15,7 +15,7 @@ class Tokenizer
 	private static final Locale LOCALE_US = Locale.US;
 	private static final String NONALPHANUMERIC = "[^A-Za-z0-9.]";
 	private static final String ENDPERIOD = "\\.$";
-	private static final String WHITESPACES = "\\s+";
+	static final String WHITESPACES = "\\s+";
 	private static final String SPACE = " ";
 
 	/**

@@ -14,26 +14,24 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Main {
-    //Change the directory pathname
-    //private static final File file = new File("C:\\Users\\Agra Bimantara\\Documents\\nytSearchEngine\\nyt\\data\\2000\\01\\01\\1165027.xml");
 
     public static void main(String[] args) {
 
         Main main = new Main();
-        //main.init();
-        main.start();
+        main.init();
+        //main.start();
 
     }
 
     private void init(){
         //-----------CREATING TABLES FOR DATABASE (ONLY INITIALIZATION)
         DAOImpl.createTable();
-        String nytPath = "C:\\Users\\Agra Bimantara\\Documents\\nytSearchEngine\\nyt\\data\\2000";
+        String nytPath = "E:\\Downloads\\Compressed\\nyt\\nyt\\data\\2000";
 
         //------------INSERT DATA TO tfs TABLE (calculate tfs)
         //UNCOMMENT THESE TO START INDEXING INTO TABLE tfs and docs, CHANGE TO YOUR OWN DIRECTORY
-        Importer importer = new Importer();
-        importer.importDirectory(nytPath);
+//        Importer importer = new Importer();
+//        importer.importDirectory(nytPath);
     }
 
     private void start(){

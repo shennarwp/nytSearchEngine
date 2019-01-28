@@ -56,7 +56,8 @@ public class Importer {
             Class.forName("org.sqlite.JDBC");
 
             // open connection
-            conn = DriverManager.getConnection("jdbc:sqlite:" + db);
+            //
+            conn = DriverManager.getConnection("jdbc:sqlite:src/main/resources/nyt.sqlite");
             conn.setAutoCommit(false);
 
             // prepare statements
