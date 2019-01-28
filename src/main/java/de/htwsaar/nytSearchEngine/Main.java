@@ -11,6 +11,7 @@ import de.htwsaar.nytSearchEngine.util.*;
 
 import java.io.File;
 import java.util.List;
+import java.util.Scanner;
 
 public class Main {
     //Change the directory pathname
@@ -44,5 +45,38 @@ public class Main {
         System.out.println("tokyo train disaster");
         for (Accumulator a : accumulatorList3)
             System.out.println("did: " + a.getDid() + " score: " + a.getScore());
+    }
+
+    private void start(){
+        boolean whileCase = true;
+        Scanner scanner = new Scanner(System.in);
+        String input;
+
+        System.out.println("Welcome");
+        System.out.println("Please enter your query");
+        System.out.println("Input 0 for exit");
+
+        while (whileCase) {
+            input =scanner.nextLine();
+
+            if(input.trim().isEmpty()){
+                whileCase = false;
+            }else {
+
+
+
+            }
+
+
+            if(input.equals("0")){
+                whileCase = false;
+
+            }else {
+
+            }
+
+        scanner.close();
+
+        }
     }
 }
