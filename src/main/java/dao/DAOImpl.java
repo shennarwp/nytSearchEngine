@@ -1,5 +1,7 @@
 package dao;
 
+import de.htwsaar.nytSearchEngine.model.Document;
+
 import javax.xml.transform.Result;
 import java.sql.*;
 import java.util.ArrayList;
@@ -233,6 +235,38 @@ public class DAOImpl {
         }
 
         return size;
+    }
+
+
+    public Document getDocumentByDid(long did){
+        String sql = "SELECT * FROM docs WHERE did=? ;";
+        Document document = new Document();
+        ResultSet resultSet = null;
+
+
+        try (Connection conn = this.connect();
+             PreparedStatement ps = conn.prepareStatement(sql)){
+            ps.setLong(1, did);
+            resultSet = ps.executeQuery();
+
+
+
+            while (resultSet.next()){
+
+               document.setId(resultSet.getInt("did"));
+               document.setTitle(resultSet.getString("title"));
+               document.setURL(resultSet.getString("url"));
+
+
+            }
+
+
+        }catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+
+        return document;
     }
 
 

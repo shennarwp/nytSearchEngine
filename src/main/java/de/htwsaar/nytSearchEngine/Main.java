@@ -18,17 +18,75 @@ public class Main {
     //private static final File file = new File("C:\\Users\\Agra Bimantara\\Documents\\nytSearchEngine\\nyt\\data\\2000\\01\\01\\1165027.xml");
 
     public static void main(String[] args) {
+
+        Main main = new Main();
+        //main.init();
+        main.start();
+
+    }
+
+    private void init(){
         //-----------CREATING TABLES FOR DATABASE (ONLY INITIALIZATION)
         DAOImpl.createTable();
-
+        String nytPath = "C:\\Users\\Agra Bimantara\\Documents\\nytSearchEngine\\nyt\\data\\2000";
 
         //------------INSERT DATA TO tfs TABLE (calculate tfs)
         //UNCOMMENT THESE TO START INDEXING INTO TABLE tfs and docs, CHANGE TO YOUR OWN DIRECTORY
-
-        String nytPath = "C:\\Users\\Agra Bimantara\\Documents\\nytSearchEngine\\nyt\\data\\2000";
-
         Importer importer = new Importer();
         importer.importDirectory(nytPath);
+    }
+
+    private void start(){
+        DAOImpl dao = new DAOImpl();
+        boolean whileCase = true;
+        Scanner scanner = new Scanner(System.in);
+        String input;
+
+
+
+        while (whileCase) {
+
+            System.out.println("Welcome");
+            System.out.println("Please enter your query");
+            System.out.println("Input 0 for exit");
+
+            input =scanner.nextLine();
+
+            if(input.trim().isEmpty()){
+                System.out.println("Please enter your query:");
+            }else {
+                if(input.equals("0")){
+                    whileCase = false;
+                }else {
+                    System.out.println("Query: " + input);
+                    System.out.println("Please wait system processing....");
+                    QueryProcessor queryProcessor = new QueryProcessor();
+                    List<Accumulator> accumulatorList1 = queryProcessor.process(input, 10);
+
+
+                    int i = 0;
+                    for (Accumulator a : accumulatorList1) {
+                        Document document = dao.getDocumentByDid(a.getDid());
+
+                        System.out.println("Rank: " + i + " "+ "Title: " + document.getTitle() + " " +"URL: " + document.getURL() + " score: " + a.getScore());
+                        i++;
+                    }
+                }
+
+
+            }
+
+
+
+
+
+        }
+
+        scanner.close();
+    }
+
+
+    private void manualSearch(){
 
         QueryProcessor queryProcessor = new QueryProcessor();
         List<Accumulator> accumulatorList1 = queryProcessor.process("olympics opening ceremony", 5);
@@ -45,38 +103,6 @@ public class Main {
         System.out.println("tokyo train disaster");
         for (Accumulator a : accumulatorList3)
             System.out.println("did: " + a.getDid() + " score: " + a.getScore());
-    }
 
-    private void start(){
-        boolean whileCase = true;
-        Scanner scanner = new Scanner(System.in);
-        String input;
-
-        System.out.println("Welcome");
-        System.out.println("Please enter your query");
-        System.out.println("Input 0 for exit");
-
-        while (whileCase) {
-            input =scanner.nextLine();
-
-            if(input.trim().isEmpty()){
-                whileCase = false;
-            }else {
-
-
-
-            }
-
-
-            if(input.equals("0")){
-                whileCase = false;
-
-            }else {
-
-            }
-
-        scanner.close();
-
-        }
     }
 }
