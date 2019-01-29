@@ -1,0 +1,72 @@
+Programming Assignment 3
+
+Agra Bimantara        3710033
+Shenna R.W. Piri    3737748
+Tobias Gottschalk     3726037
+----------------------------------------
+
+run program from Main.java
+in function main() :
+
+    UNCOMMENT init TO START CREATING THE TABLE, PARSING, AND IMPORTING DATA
+    TO THE TABLE (ONLY INITIALIZATION AND ONLY FIRST TIME)
+
+    UNCOMMENT start TO TEST THE COMMAND LINE OPTION
+
+    UNCOMMENT manualSearch TO CALCULATE THE BOOSTED SCORE OF 3 QUERIES IN 4.3
+
+for Task 4.2 we tried to boost the results in Accumulator by increasing the score
+by 5% (score = score * (1 + 0.5n)) for each n term (from query) that appears in
+the title of the document. The code of this function can be seen in function:
+private List<Accumulator> boostScore(List<Accumulator> acc, String query) in
+QueryProcessor.java class.
+
+As displayed below, our results did not change in the slightest, as probably
+the calculation / formula for boosting is not good enough and because we did
+not implement boosting the results by other means as well (e.g. published date)
+
+
+
+_______________________________WITHOUT BOOST_______________________________
+summer olympics opening ceremony
+did: 1259522 score: 116.87071034693614
+did: 1212655 score: 115.6103752861998
+did: 1232198 score: 85.4055190996841
+did: 1230028 score: 80.9104917786481
+did: 1229438 score: 71.92043713657608
+
+alpine disaster kaprun
+did: 1246797 score: 51.78855539139032
+did: 1247024 score: 43.921778716578615
+did: 1247024 score: 41.43084431311225
+did: 1201271 score: 39.68708480187675
+did: 1255397 score: 35.277408712779334
+
+concorde crash paris
+did: 1220080 score: 175.65191802999766
+did: 1217856 score: 162.14023202769013
+did: 1234944 score: 140.8599586820234
+did: 1218016 score: 135.1168600230751
+did: 1219073 score: 128.36101702192136
+
+_______________________________WITH BOOST_______________________________
+summer olympics opening ceremony
+did: 1259522 score: 140.24485241632337
+did: 1212655 score: 138.73245034343975
+did: 1232198 score: 102.48662291962091
+did: 1230028 score: 97.09259013437772
+did: 1229438 score: 86.30452456389129
+
+alpine disaster kaprun
+did: 1246797 score: 59.55683870009886
+did: 1247024 score: 50.510045524065404
+did: 1247024 score: 47.64547096007909
+did: 1201271 score: 45.64014752215826
+did: 1255397 score: 40.56902001969623
+
+concorde crash paris
+did: 1220080 score: 201.9997057344973
+did: 1217856 score: 186.46126683184363
+did: 1234944 score: 161.98895248432692
+did: 1218016 score: 155.38438902653635
+did: 1219073 score: 147.61516957520953

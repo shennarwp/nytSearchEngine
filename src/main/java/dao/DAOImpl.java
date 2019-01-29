@@ -270,7 +270,7 @@ public class DAOImpl {
     }
 
     public String getTitleByDid(long did) {
-       String sql = "SELECT title DROM docs WHERE did=? ;";
+       String sql = "SELECT * FROM docs WHERE did=? ;";
        String title = "";
        ResultSet resultSet = null;
 
@@ -283,7 +283,6 @@ public class DAOImpl {
                title = resultSet.getString(title);
            }
        } catch (SQLException e) {
-           System.out.println(e.getMessage());
        }
        return title;
     }

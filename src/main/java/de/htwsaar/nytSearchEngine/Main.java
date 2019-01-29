@@ -15,11 +15,19 @@ import java.util.Scanner;
 
 public class Main {
 
+
     public static void main(String[] args) {
 
         Main main = new Main();
-        main.init();
+
+        //UNCOMMENT init TO START CREATING THE TABLE, PARSING, AND IMPORTING DATA TO THE TABLE (ONLY INITIALIZATION)
+        //main.init();
+
+        //UNCOMMENT start TO TEST THE COMMAND LINE OPTION
         //main.start();
+
+        //UNCOMMENT manualSearch TO CALCULATE THE SCORE OF 3 QUERIES IN 4.3
+        //main.manualSearch();
 
     }
 
@@ -30,8 +38,8 @@ public class Main {
 
         //------------INSERT DATA TO tfs TABLE (calculate tfs)
         //UNCOMMENT THESE TO START INDEXING INTO TABLE tfs and docs, CHANGE TO YOUR OWN DIRECTORY
-//        Importer importer = new Importer();
-//        importer.importDirectory(nytPath);
+        Importer importer = new Importer();
+        importer.importDirectory(nytPath);
     }
 
     private void start(){
@@ -87,18 +95,18 @@ public class Main {
     private void manualSearch(){
 
         QueryProcessor queryProcessor = new QueryProcessor();
-        List<Accumulator> accumulatorList1 = queryProcessor.process("olympics opening ceremony", 5);
-        System.out.println("olympics opening ceremony");
+        List<Accumulator> accumulatorList1 = queryProcessor.process("summer olympics opening ceremony", 5);
+        System.out.println("summer olympics opening ceremony");
         for (Accumulator a : accumulatorList1)
             System.out.println("did: " + a.getDid() + " score: " + a.getScore());
 
-        List<Accumulator> accumulatorList2 = queryProcessor.process("denmark sweden bridge", 5);
-        System.out.println("denmark sweden bridge");
+        List<Accumulator> accumulatorList2 = queryProcessor.process("alpine disaster kaprun", 5);
+        System.out.println("alpine disaster kaprun");
         for (Accumulator a : accumulatorList2)
             System.out.println("did: " + a.getDid() + " score: " + a.getScore());
 
-        List<Accumulator> accumulatorList3 = queryProcessor.process("tokyo train disaster", 5);
-        System.out.println("tokyo train disaster");
+        List<Accumulator> accumulatorList3 = queryProcessor.process("concorde crash paris", 5);
+        System.out.println("concorde crash paris");
         for (Accumulator a : accumulatorList3)
             System.out.println("did: " + a.getDid() + " score: " + a.getScore());
 

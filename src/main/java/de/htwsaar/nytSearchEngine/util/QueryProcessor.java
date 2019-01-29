@@ -57,10 +57,13 @@ public class QueryProcessor {
 
             accList.addAll(mapAcc.values());
         }
+        //Uncomment these and comment the 3 lines below to get non boosted results
+        //accList.sort(Comparator.comparing(Accumulator::getScore).reversed());
+        //return accList;
+
         List<Accumulator> boostedList = boostScore(accList, query);
         boostedList.sort(Comparator.comparing(Accumulator::getScore).reversed());
         return boostedList;
-
     }
 
     /**
@@ -86,12 +89,13 @@ public class QueryProcessor {
 
         for(Accumulator a : acc) {
             String title = String.join(" ", tokenizeString(dao.getTitleByDid(a.getDid())));
-            double contains =  queryList.stream()
+            double contains = queryList.stream()
                                       .map(title::contains)
                                       .mapToDouble(t -> 0.05)
                                       .sum();
             a.setScore(a.getScore() * (1 + contains));
         }
+        acc.sort(Comparator.comparing(Accumulator::getScore).reversed());
         return acc;
     }
 }
